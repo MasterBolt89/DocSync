@@ -77,7 +77,7 @@ async def run_full_analysis(repo_url: str) -> AnalysisResult:
             error=str(e),
         )
 
-    async with httpx.AsyncClient(timeout=settings.request_timeout) as client:
+    async with httpx.AsyncClient(timeout=settings.request_timeout, follow_redirects=True) as client:
         try:
             meta = await fetch_repo_meta(owner, repo_name, client)
         except (ValueError, PermissionError) as e:
